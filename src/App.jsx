@@ -4,9 +4,10 @@ import Layout from "./Layout/Layout"
 import Home from "./pages/Home"
 import AboutUs from "./pages/AboutUs"
 import CountryDetail from "./components/CountryDetail"
-import { createContext, useEffect, useState } from "react"
+import { createContext, useEffect, useReducer } from "react"
 import { client } from "../lib/axios"
 import Countries from "./pages/Countries"
+import { initialState, reducer } from "../lib/reducer"
 
 const router= createBrowserRouter([
   {
@@ -38,13 +39,13 @@ export const CountriesContext = createContext(null);
 
 function App() {
 
-  const [countries, setCountries] = useState([]);
+  const [state, dispatch]= useReducer(reducer, initialState)
 
   const getData= async () => {
       try {
         const res = await client.get("/all");
         const { data } = res;
-        setCountries(data)
+        dispatch({type:"SET_COUNTRIES", payload: data})
       } catch (error) {
          console.log(error);
       }
@@ -52,11 +53,10 @@ function App() {
 
   useEffect(()=> {
     getData();
-    
-  })
+  },[])
 
   return (
-    <CountriesContext.Provider value={{countries, setCountries}}>
+    <CountriesContext.Provider value={{state, dispatch}}>
       <RouterProvider router={router} />
     </CountriesContext.Provider>
     )
