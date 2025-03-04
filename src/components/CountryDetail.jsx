@@ -1,10 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router";
 import { CountriesContext } from "../App";
 
 const CountryDetail = () => {
   const { common } = useParams();
-  const { countries } = useContext(CountriesContext);
+  const { state } = useContext(CountriesContext);
+  const { countries }= state;
   const country = countries.find((countr) => countr.name.common === common);
 
   return (

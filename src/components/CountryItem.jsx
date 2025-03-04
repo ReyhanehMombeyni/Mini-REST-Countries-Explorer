@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router";
 
 const CountryItem = ({ name, region, population }) => {
-  const {common}= name;
+  const {common }= name;
   return (
     <div className="card w-96 bg-base-100 card-lg shadow-lg hover:shadow-2xl">
       <div className="card-body text-gray-700">

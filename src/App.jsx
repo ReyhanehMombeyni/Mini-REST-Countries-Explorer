@@ -8,6 +8,7 @@ import { createContext, useEffect, useReducer } from "react"
 import { client } from "../lib/axios"
 import Countries from "./pages/Countries"
 import { initialState, reducer } from "../lib/reducer"
+import axios from "axios"
 
 const router= createBrowserRouter([
   {
@@ -43,8 +44,8 @@ function App() {
 
   const getData= async () => {
       try {
-        const res = await client.get("/all");
-        const { data } = res;
+        const res = await axios.get("https://restcountries.com/v3.1/all");
+        const { data } = res;        
         dispatch({type:"SET_COUNTRIES", payload: data})
       } catch (error) {
          console.log(error);
