@@ -7,21 +7,6 @@ const FilterBox = () => {
 
   const { dispatch } = useContext(CountriesContext);
 
-  const optionHandler = () => {
-    if (selectValue === "allorigin" && !nameSearch) {
-        dispatch({ type: "SET_ALL" });
-    }
-    else if(selectValue === "allorigin" && nameSearch) {
-        dispatch({ type: "SEARCHING", payload: nameSearch });
-    }
-    else if (selectValue !== "allorigin" && !nameSearch) {
-        dispatch({type: "NOT_ALL_ORIGIN", payload: selectValue})
-    }
-    else if (selectValue !== "allorigin" && nameSearch) {
-        dispatch({type: "DEEP_SEARCH", payload: {selectValue, nameSearch}})
-    }
-  };
-
   const changeHandler = async () => {
     if (selectValue === "allorigin" && !nameSearch) {
         dispatch({ type: "SET_ALL" });
@@ -39,7 +24,6 @@ const FilterBox = () => {
 
   useEffect(()=>{
     changeHandler();
-    optionHandler();
   },[selectValue, nameSearch])
   
   return (
